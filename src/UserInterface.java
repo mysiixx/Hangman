@@ -11,6 +11,7 @@ public class UserInterface {
         this.loop = true;
     }
 
+    // Starts the game
     public void start() {
         System.out.print("Sisesta sõna: ");
         String input = this.scanner.nextLine();
@@ -30,6 +31,7 @@ public class UserInterface {
         restart();
     }
 
+    // Asks the user if they want to play again
     public void restart() {
         System.out.println("Kas tahad uuesti mängida? y/n");
         String restart = scanner.nextLine();

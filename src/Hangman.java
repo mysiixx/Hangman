@@ -39,12 +39,14 @@ public class Hangman {
         this.round = 1;
     }
 
+    // Replaces hiddenWord array elements with '_' depending on input word length
     public void replaceHiddenWord() {
         for(int i = 0; i < this.word.length; i++) {
             this.hiddenWord[i] = '_';
         }
     }
 
+    // Displays the hangman based on the stage
     public void show() {
         int stage = this.stage;
         char m = Character.forDigit(stage, 36);
@@ -56,6 +58,7 @@ public class Hangman {
         System.out.println(this.hiddenWord);
     }
 
+    // Checks for correct characters in word
     public void charCheck(String input) {
         char[] inputArray = input.trim().toLowerCase().toCharArray();
         char[] temp = this.hiddenWord.clone();
@@ -77,6 +80,7 @@ public class Hangman {
         }
     }
 
+    // Game ending check
     public boolean endGame() {
         if(this.stage >= 10) {
             System.out.println("Rounde: " + this.round + "\nSa kaotasid...");
