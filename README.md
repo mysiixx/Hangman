@@ -1,2 +1,3 @@
 # Hangman
-Hangman game
+
+This is a hangman game coded in Java.
