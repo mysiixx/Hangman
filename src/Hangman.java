@@ -63,35 +63,41 @@ public class Hangman {
         char[] inputArray = input.trim().toLowerCase().toCharArray();
         char[] temp = this.hiddenWord.clone();
 
-        if (inputArray.length > 1) {
-            if (Arrays.equals(inputArray, this.word)) {
-                this.hiddenWord = this.word;
-            }
-        } else {
-            for(int i = 0; i < this.word.length; i++) {
-                if (inputArray[0] == this.word[i]) {
-                    this.hiddenWord[i] = this.word[i];
+        if(inputArray.length != 0) {
+            if (inputArray.length > 1) {
+                if (Arrays.equals(inputArray, this.word)) {
+                    this.hiddenWord = this.word;
+                }
+            } else {
+                for (int i = 0; i < this.word.length; i++) {
+                    if (inputArray[0] == this.word[i]) {
+                        this.hiddenWord[i] = this.word[i];
+                    }
                 }
             }
-        }
 
-        if (Arrays.equals(this.hiddenWord, temp)) {
-            this.stage++;
+
+            if (Arrays.equals(this.hiddenWord, temp)) {
+                this.stage++;
+            }
+
+            this.round++;
         }
     }
 
-    // Game ending check
-    public boolean endGame() {
+    // Checks if game should end
+    // and prints out the word when you lost
+    public boolean endGame(String word) {
         if(this.stage >= 10) {
             System.out.println("Rounde: " + this.round + "\nSa kaotasid...");
+            System.out.println("Sõna oli: " + word);
             return false;
         }
         if(Arrays.equals(this.word, this.hiddenWord)) {
             System.out.println("Rounde: " + this.round + "\nSa võitsid!");
             return false;
         }
-        this.round++;
-        return true;
 
+        return true;
     }
 }
