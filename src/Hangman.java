@@ -10,6 +10,7 @@ public class Hangman {
     private int stage, round;
     private PrintStream printStream;
     private ArrayList<Character> checkedChars;
+    private ArrayList<String> checkedWords;
 
     private static final String IMG_FMT =
             "    ________%n" +
@@ -39,6 +40,7 @@ public class Hangman {
 
     public Hangman(String word) {
         this.checkedChars = new ArrayList<>();
+        this.checkedWords = new ArrayList<>();
         this.word = word.trim().toCharArray();
         this.hiddenWord = word.toCharArray();
         this.printStream = System.out;
@@ -77,16 +79,37 @@ public class Hangman {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
-        if (input.length() != 0 && matcher.matches()) {
+        if(input.length() != 0 && matcher.matches()) {
             char[] inputArray = input.trim().toLowerCase().toCharArray();
             char[] temp = this.hiddenWord.clone();
 
-            if (inputArray.length != 0 && inputArray.length > 1) {
-                if (Arrays.equals(inputArray, this.word)) {
+            // Checks if input is a character or a word
+            if(inputArray.length > 1) {
+                // If that word has already been guessed, return
+                if(this.checkedWords.contains(inputArray.toString())) {
+                    System.out.println("See sõna on varem sisestatud.");
+                    return;
+                }
+
+                // Adds input word to checked input list
+                this.checkedWords.add(inputArray.toString());
+
+                // Compares the input and actual word
+                if(Arrays.equals(inputArray, this.word)) {
                     this.hiddenWord = this.word;
                 }
                 this.round++;
             } else if(inputArray.length == 1) {
+                // If that character has already been guessed, return
+                if(this.checkedChars.contains(inputArray[0])) {
+                    System.out.println("See täht on varem sisestatud.");
+                    return;
+                }
+
+                // Add the input to checked input list
+                this.checkedChars.add(inputArray[0]);
+
+                // Loops through all characters in the word and reveals them, if input is correct
                 for (int i = 0; i < this.word.length; i++) {
                     if (inputArray[0] == this.word[i]) {
                         this.hiddenWord[i] = this.word[i];
@@ -95,13 +118,11 @@ public class Hangman {
                 this.round++;
             }
 
-
-            if (Arrays.equals(this.hiddenWord, temp)) {
+            if(Arrays.equals(this.hiddenWord, temp)) {
                 this.stage++;
             }
-
         } else {
-            if (input.length() > 1) {
+            if(input.length() > 1) {
                 System.out.println("Need märgid ei ole lubatud!");
             } else if(input.length() == 1) {
                 System.out.println("See märk ei ole lubatud!");
