@@ -73,7 +73,7 @@ public class Hangman {
     // Checks for correct characters in word
     public void charCheck(String input) {
         // Checks for valid inputs to increase security
-        String regex = "^[A-Za-z]*$";
+        String regex = "^[A-Za-zõäöüÕÄÖÜ]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 

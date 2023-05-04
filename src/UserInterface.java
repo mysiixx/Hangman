@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserInterface {
     private Scanner scanner;
@@ -26,15 +24,14 @@ public class UserInterface {
         this.hangman.replaceHiddenWord();
         boolean loop = true;
 
+        System.out.println(word);
         // While game has not ended, user can guess the word
         while(loop) {
             System.out.print("Sisesta täht (mitme tähe puhul võrdleb sõnaga): ");
             String check = this.scanner.nextLine();
-
             this.hangman.charCheck(check);
             this.hangman.show();
-
-            if (!this.hangman.endGame(word)) {
+            if(!this.hangman.endGame(word)) {
                 loop = false;
             }
         }
